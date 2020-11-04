@@ -28,6 +28,7 @@ function App() {
             <Route path='/login' component={Login}></Route>
             <Route path='/register' component={Register}></Route>
           </Switch>
+          
         </Suspense>
       </main>
       <Footer />
