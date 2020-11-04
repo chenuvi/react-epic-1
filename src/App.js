@@ -14,7 +14,7 @@ const About = lazy(() => import('./pages/About'))
 
 function App() {
   return (
-    <div className="app">
+    <>
       <Header />
       <main>
       <Suspense fallback={<Loading />}>
@@ -26,7 +26,7 @@ function App() {
       </Suspense>
       </main>
       <Footer />
-    </div>
+    </>
   );
 }
 
