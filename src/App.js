@@ -1,4 +1,5 @@
 import React, { Suspense, lazy } from 'react'
+import './app.css'
 import {
   Switch,
   Route
@@ -11,16 +12,11 @@ const Home = lazy(() => import('./pages/Home'))
 const History = lazy(() => import('./pages/History'))
 const About = lazy(() => import('./pages/About'))
 
-// import About from './pages/About'
-// import History from './pages/History'
-// import Home from './pages/Home'
-
-
 function App() {
   return (
     <div className="app">
       <Header />
-
+      <main>
       <Suspense fallback={<Loading />}>
         <Switch>
           <Route path='/' exact component={Home}></Route>
@@ -28,7 +24,7 @@ function App() {
           <Route path='/about' component={About}></Route>
         </Switch>
       </Suspense>
-
+      </main>
       <Footer />
     </div>
   );
