@@ -20,6 +20,13 @@ const StyledLink = styled(NavLink)`
         border-bottom:1px solid #fff;
     }
 `
+const Login = styled.div`
+  margin-left: auto;
+`;
+
+const Button = styled.button`
+  margin-left: 10px;
+`;
 
 function Component() {
     return (
@@ -30,6 +37,14 @@ function Component() {
                 <StyledLink activeClassName='active' to='/history'>上传历史</StyledLink>
                 <StyledLink activeClassName='active' to='/about'>关于</StyledLink>
             </nav>
+            <Login>
+                <Button>
+                    <StyledLink to='/login'>登录</StyledLink>
+                </Button>
+                <Button>
+                    <StyledLink to='/register'>注册</StyledLink>
+                </Button>
+            </Login>
         </Header>
     );
 }

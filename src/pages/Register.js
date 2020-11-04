@@ -1,11 +1,13 @@
 import React from 'react'
-
-function Component() {
+import {observer} from 'mobx-react'
+import {useStores} from '../stores'
+const Component = observer(() => {
+    const {AuthStore} = useStores()
     return (
       <>
-      <p>register</p>
+      <p>Register: {AuthStore.values.username}</p>
       </>
     );
-  }
+  })
   
   export default Component;

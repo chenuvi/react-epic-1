@@ -8,8 +8,13 @@ class AuthStore {
         password: ''
     }
 
+    @action setIsLogin(isLogin) {
+      this.isLogin = isLogin;
+    }
+
     @action setUsername(username){
-        this.values.username = username
+      this.values.username = username
+      console.log('setUsername 执行了',this.values.username);
     }
     @action setPassword(password){
         this.values.password= password
