@@ -34,7 +34,7 @@ function Component() {
     const [isLogin,setIsLogin] = useState(false)
     return (
         <Header>
-            <Logo src='' src={LogoUrl}></Logo>
+            <Logo src={LogoUrl}></Logo>
             <nav>
                 <StyledLink activeClassName='active' to='/' exact>首页</StyledLink>
                 <StyledLink activeClassName='active' to='/history'>上传历史</StyledLink>
