@@ -18,7 +18,7 @@ const Auth = {
 
   login(username, password) {
     return new Promise((resolve, reject) => {
-      User.logIn().then(loginedUser => resolve(loginedUser), error => reject(error))
+      User.logIn(username,password).then(loginedUser => resolve(loginedUser), error => reject(error))
     });
   },
 

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import 'antd/dist/antd.css';
 import { BrowserRouter as Router } from 'react-router-dom'
+import Model from './models';
 
 ReactDOM.render(
     <Router>

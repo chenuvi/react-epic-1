@@ -1,6 +1,7 @@
 import {observable, action} from 'mobx';
 import {Auth} from '../models'
 
+
 class AuthStore {
   @observable values = {
     username: '',
@@ -18,7 +19,7 @@ class AuthStore {
 
   @action login() {
     return new Promise((resolve, reject) => {
-      Auth.register(this.values.username, this.values.password)
+      Auth.login(this.values.username, this.values.password)
         .then(user => {
           console.log('登录成功')
           resolve(user)
@@ -29,7 +30,6 @@ class AuthStore {
         })
     })
   }
-
   @action register() {
     return new Promise((resolve, reject) => {
       Auth.register(this.values.username, this.values.password)
@@ -44,6 +44,7 @@ class AuthStore {
     })
 
   }
+
 
   @action logout() {
     Auth.logout()

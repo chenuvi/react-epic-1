@@ -35,15 +35,15 @@ const Component = () => {
 
   const onFinish = (values) => {
     console.log('Success:', values);
-    // AuthStore.setUsername(values.username)
-    // AuthStore.setPassword(values.password)
-    // AuthStore.register(values.username,values.password)
-    //   .then(
-    //     console.log('注册成功, 跳转到首页')
-    //   )
-    //   .catch(
-    //     console.log('登录失败，什么都不做')
-    //   )
+    AuthStore.setUsername(values.username)
+    AuthStore.setPassword(values.password)
+    AuthStore.register()
+      .then(
+        () => { console.log('注册成功, 跳转到首页')}
+      )
+      .catch(
+        () => { console.log('注册失败，什么都不做')}
+      )
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -56,12 +56,12 @@ const Component = () => {
     Promise.resolve()
   }
 
-  // const validateConfirm = ({getFieldValue}) => ({
-  //   validator(rule, value) {
-  //     if (getFieldValue('password') === value) return Promise.resolve()
-  //     return Promise.reject('两次密码不一致')
-  //   }
-  // })
+  const validateConfirm = ({getFieldValue}) => ({
+    validator(rule, value) {
+      if (getFieldValue('password') === value) return Promise.resolve()
+      return Promise.reject('两次密码不一致')
+    }
+  })
 
   return (
     <Wrapper>
@@ -121,7 +121,7 @@ const Component = () => {
               required: true,
               message: '再次确认密码',
             },
-            // validateConfirm
+            validateConfirm
           ]}
         >
           <Input.Password/>
