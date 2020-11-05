@@ -31,4 +31,4 @@ const Auth = {
   }
 }
 
-export default {Auth}
+export {Auth}
