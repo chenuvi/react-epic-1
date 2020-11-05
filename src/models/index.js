@@ -1,4 +1,4 @@
-import AV,{ Query, User } from 'leancloud-storage'
+import AV, {Query, User} from 'leancloud-storage'
 
 AV.init({
   appId: "70yyuctbKtOOpDR0oX94Qdz9-gzGzoHsz",
@@ -6,16 +6,29 @@ AV.init({
   serverURL: "https://70yyuctb.lc-cn-n1-shared.com"
 });
 
-// LeanCloud - 注册
-// https://leancloud.cn/docs/leanstorage_guide-js.html#注册
-var user = new AV.User();
-user.setUsername("testUsername");
-user.setPassword("testPassword");
+const Auth = {
+  register(username, password) {
+    let user = new User();
+    user.setUsername(username);
+    user.setPassword(password);
+    return new Promise((resolve, reject) => {
+      user.signUp().then(loginedUser => resolve(loginedUser), error => reject(error))
+    });
+  },
 
-user.signUp().then(loginedUser => {
-  console.log('注册成功')
-}, ( error => {
-  console.log(error)
-}));
+  login(username, password) {
+    return new Promise((resolve, reject) => {
+      User.logIn().then(loginedUser => resolve(loginedUser), error => reject(error))
+    });
+  },
 
-export  default {}
+  logout() {
+   return User.logOut()
+  },
+
+  getCurrentUser(){
+    return User.current();
+  }
+}
+
+export default {Auth}
