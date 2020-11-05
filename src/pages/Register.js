@@ -38,6 +38,21 @@ const Component = () => {
     console.log('Failed:', errorInfo);
   };
 
+  const validateUsername = (rule,value) => {
+    if(/\w/.test(value)) return Promise.reject('只能是字母数字下划线');
+    if(value.length < 4 || value.length > 10) return Promise.reject('长度为4～10个字符');
+    console.log('value: ', value);
+    console.log('rule: ', rule);
+    Promise.resolve()
+  }
+
+  const validateConfirm = ({getFieldValue}) => ({
+    validator(rule,value) {
+      if(getFieldValue('password') === value) return Promise.resolve
+      return Promise.reject('两次密码不一致')
+    }
+  })
+
   return (
     <Wrapper>
       <Title>注册</Title>
@@ -58,6 +73,9 @@ const Component = () => {
               required: true,
               message: '输入用户名',
             },
+            {
+              validator:validateUsername
+            }
           ]}
         >
           <Input/>
@@ -69,7 +87,16 @@ const Component = () => {
           rules={[
             {
               required: true,
+              whitespace:false,
               message: '输入密码',
+            },
+            {
+              min:4,
+              message:'最少4个字符'
+            },
+            {
+              max:16,
+              message:'最多16个字符'
             },
           ]}
         >
@@ -78,12 +105,13 @@ const Component = () => {
 
         <Form.Item
           label="确认密码"
-          name="password"
+          name="confirmPassword"
           rules={[
             {
               required: true,
-              message: '两次密码不一致',
+              message: '再次确认密码',
             },
+            validateConfirm
           ]}
         >
           <Input.Password/>
