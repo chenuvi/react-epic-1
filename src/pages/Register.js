@@ -53,7 +53,7 @@ const Component = () => {
   const validateUsername = (rule, value) => {
     if (/\W/.test(value)) return Promise.reject('只能是字母数字下划线');
     if (value.length < 4 || value.length > 10) return Promise.reject('长度为4～10个字符');
-    Promise.resolve()
+    return Promise.resolve()
   }
 
   const validateConfirm = ({getFieldValue}) => ({
