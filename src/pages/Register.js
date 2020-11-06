@@ -34,7 +34,7 @@ const Component = () => {
   const { AuthStore } = useStores()
 
   const onFinish = (values) => {
-    console.log('Success:', values);
+    // console.log('Success:', values);
     AuthStore.setUsername(values.username)
     AuthStore.setPassword(values.password)
     AuthStore.register()

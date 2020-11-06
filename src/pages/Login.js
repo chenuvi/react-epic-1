@@ -1,6 +1,7 @@
 import React from 'react'
-import {Form, Input, Button} from 'antd';
+import { Form, Input, Button } from 'antd';
 import styled from 'styled-components'
+import { useStores } from '../stores'
 
 const Wrapper = styled.div`
   max-width:600px;
@@ -30,20 +31,31 @@ const tailLayout = {
 };
 
 const Component = () => {
+  const { AuthStore } = useStores()
+
   const onFinish = (values) => {
-    console.log('Success:', values);
+    // console.log('Success:', values);
+    AuthStore.setUsername(values.username)
+    AuthStore.setPassword(values.password)
+    AuthStore.login()
+      .then(
+        user => {
+          console.log('user: ', user);
+        }
+      )
+      .catch(
+        error => { console.log(error) }
+      )
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
-  const validateUsername = (rule,value) => {
-    if(/\W/.test(value)) return Promise.reject('只能是字母数字下划线');
-    if(value.length < 4 || value.length > 10) return Promise.reject('长度为4～10个字符');
-    console.log('value: ', value);
-    console.log('rule: ', rule);
-    Promise.resolve()
+  const validateUsername = (rule, value) => {
+    if (/\W/.test(value)) return Promise.reject('只能是字母数字下划线');
+    if (value.length < 4 || value.length > 10) return Promise.reject('长度为4～10个字符');
+    return Promise.resolve()
   }
 
   return (
@@ -67,11 +79,11 @@ const Component = () => {
               message: '输入用户名',
             },
             {
-              validator:validateUsername
+              validator: validateUsername
             }
           ]}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -80,20 +92,20 @@ const Component = () => {
           rules={[
             {
               required: true,
-              whitespace:false,
+              whitespace: false,
               message: '输入密码',
             },
             {
-              min:4,
-              message:'最少4个字符'
+              min: 4,
+              message: '最少4个字符'
             },
             {
-              max:16,
-              message:'最多16个字符'
+              max: 16,
+              message: '最多16个字符'
             },
           ]}
         >
-          <Input.Password/>
+          <Input.Password />
         </Form.Item>
 
         <Form.Item {...tailLayout}>

@@ -10,7 +10,6 @@ class AuthStore {
 
   @action setUsername(username) {
     this.values.username = username
-    console.log('setUsername 执行了', this.values.username);
   }
 
   @action setPassword(password) {
@@ -20,12 +19,10 @@ class AuthStore {
   @action login() {
     return new Promise((resolve, reject) => {
       Auth.login(this.values.username, this.values.password)
-        .then(user => {
+        .then(() => {
           console.log('登录成功')
-          resolve(user)
         })
         .catch(error => {
-          console.log('登录失败')
           reject(error)
         })
     })
