@@ -20,10 +20,12 @@ class AuthStore {
     return new Promise((resolve, reject) => {
       Auth.login(this.values.username, this.values.password)
         .then((user) => {
-          resolve(user)
           UserStore.pullUser()
+          console.log(' auth @action login user 执行了 ', user);
+          resolve(user)
         })
         .catch(error => {
+          UserStore.resetUser();
           reject(error)
         })
     })

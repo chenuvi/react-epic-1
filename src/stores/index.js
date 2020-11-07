@@ -12,4 +12,6 @@ window.stores = {
     UserStore
 };
 
+console.log('返回总store执行了')
+
 export const useStores = () => useContext(context)
