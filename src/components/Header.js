@@ -46,18 +46,15 @@ const  Component = observer(() => {
   };
 
   const handleLogin = () => {
-    console.log('跳转到登录页面')
     history.push('/login');
   };
 
   const handleRegister = () => {
-    console.log('跳转到注册页面')
     history.push('/register');
   }
 
   useEffect(()=>{
     UserStore.pullUser()
-    console.log('任意数据变更就重新渲染')
   })
 
   return (

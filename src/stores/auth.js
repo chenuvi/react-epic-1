@@ -21,7 +21,6 @@ class AuthStore {
       Auth.login(this.values.username, this.values.password)
         .then((user) => {
           UserStore.pullUser()
-          console.log(' auth @action login user 执行了 ', user);
           resolve(user)
         })
         .catch(error => {
