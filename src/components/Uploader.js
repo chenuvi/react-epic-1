@@ -1,11 +1,24 @@
 import React, { useRef } from 'react'
 import { useStores } from '../stores'
 import { observer } from 'mobx-react'
-import { Upload, message } from 'antd';
-import { InboxOutlined } from '@ant-design/icons';
+import { Upload, message } from 'antd'
+import { InboxOutlined } from '@ant-design/icons'
+import styled from 'styled-components'
 
 const { Dragger } = Upload;
 
+const Result = styled.div`
+    margin-top:30px;
+    border:1px  dashed #ccc;
+    padding:20px;
+`
+const H2 = styled.h2`
+    margin:20px 0;
+    text-align:center;
+    `
+    const Image = styled.img`
+    max-width:400px;
+`
 const Component = observer(() => {
     const { ImageStore, UserStore } = useStores()
     const ref = useRef()
@@ -45,8 +58,8 @@ const Component = observer(() => {
 
             {
                 ImageStore.serverFile ?
-                    <div>
-                        <h2>上传结果</h2>
+                    <Result>
+                        <H2>上传结果</H2>
                         <dl>
                             <dt>线上地址</dt>
                             <dd>{ImageStore.serverFile.attributes.url.attributes.url}</dd>
@@ -56,7 +69,7 @@ const Component = observer(() => {
 
                             <dt>图片预览</dt>
                             <dd>
-                                <img src={ImageStore.serverFile.attributes.url.attributes.url}></img>
+                                <Image src={ImageStore.serverFile.attributes.url.attributes.url}></Image>
                             </dd>
                             <dt>更多尺寸</dt>
                             <dd>
@@ -64,7 +77,7 @@ const Component = observer(() => {
                                 <input placeholder="最大高度（可选）"></input>
                             </dd>
                         </dl>
-                    </div> : null
+                    </Result> : null
             }
 
         </>
