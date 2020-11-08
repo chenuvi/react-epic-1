@@ -42,7 +42,23 @@ const Uploader = {
     return new Promise((resolve,reject) =>{
       item.save().then(serverFile => resolve(serverFile),error=> {reject(error)})
     })
+  },
+
+  find({page = 0, limit = 10}){
+    let query = new AV.Query('Image')
+    query.include('owner')
+    query.limit(limit)
+    query.skip(limit*page)
+    query.descending('createdAt')
+    query.equalTo('owner',AV.User.current())
+    return new Promise((resolve,reject) => {
+      query.find()
+        .then( results => resolve(results))
+        .catch( err => resolve(err))
+    })
+
   }
 }
 
+window.winUploader = Uploader
 export {Auth,Uploader}
