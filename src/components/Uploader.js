@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { useStores } from '../stores'
-import { observer,useLocalStore } from 'mobx-react'
-import { Upload, message } from 'antd'
+import { observer, useLocalStore } from 'mobx-react'
+import { Upload, message, Spin } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
 
@@ -16,7 +16,7 @@ const H2 = styled.h2`
     margin:20px 0;
     text-align:center;
     `
-    const Image = styled.img`
+const Image = styled.img`
     max-width:400px;
 `
 const Component = observer(() => {
@@ -26,26 +26,26 @@ const Component = observer(() => {
 
     const store = useLocalStore(() => ({
         width: null,
-        setWidth(width){
+        setWidth(width) {
             this.width = width
         },
-        get widthStr(){
+        get widthStr() {
             return store.width ? `/w/${store.width}` : ''
         },
         height: null,
-        setHeight(height){
+        setHeight(height) {
             this.height = height
         },
-        get heightStr(){
-            return store.height ? `/h/${store.height}`:''
+        get heightStr() {
+            return store.height ? `/h/${store.height}` : ''
         },
-        get furlStr () {
+        get furlStr() {
             //?imageView2/0/w/800/h/400)
             return ImageStore.serverFile.attributes.url.attributes.url + '?imageView2/0' + store.widthStr + store.heightStr
         }
-        
+
     }))
-    
+
     const bindWidthChange = () => {
         console.log('bindWidthChange...')
         console.log('refWidth: ', refWidth);
@@ -69,11 +69,11 @@ const Component = observer(() => {
                 return false
             }
             //  /(svg$)|(png$)|(jpg$)|(jpeg$)|(gif$)/ig.test()
-            if(!/(svg$)|(png$)|(jpg$)|(jpeg$)|(gif$)/ig.test(file.type)){
+            if (!/(svg$)|(png$)|(jpg$)|(jpeg$)|(gif$)/ig.test(file.type)) {
                 message.error('只能上传png/svg/jpg/gif格式的图片');
                 return false
             }
-            if(file.size > 1024*1024*2){
+            if (file.size > 1024 * 1024 * 2) {
                 message.error('图片最大 2 M');
                 return false
             }
@@ -89,15 +89,17 @@ const Component = observer(() => {
 
     return (
         <>
-            <Dragger {...props}>
-                <p className="ant-upload-drag-icon">
-                    <InboxOutlined />
+            <Spin spinning={ImageStore.isUploading}>
+                <Dragger {...props}>
+                    <p className="ant-upload-drag-icon">
+                        <InboxOutlined />
+                    </p>
+                    <p className="ant-upload-text">点击或者拖拽上传图片</p>
+                    <p className="ant-upload-hint">
+                        仅支持.png/.gif/.jpg/.svg格式的图片，图片最大 2 M
                 </p>
-                <p className="ant-upload-text">点击或者拖拽上传图片</p>
-                <p className="ant-upload-hint">
-                仅支持.png/.gif/.jpg/.svg格式的图片，图片最大 2 M
-                </p>
-            </Dragger>,
+                </Dragger>
+            </Spin>
 
             {
                 ImageStore.serverFile ?
@@ -121,7 +123,7 @@ const Component = observer(() => {
                             </dd>
                             <dd>
                                 <a target="_blank" href={store.furlStr} >{store.furlStr}</a>
-                               
+
                             </dd>
                         </dl>
                     </Result> : null
