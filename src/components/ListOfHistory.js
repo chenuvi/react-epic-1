@@ -13,9 +13,15 @@ const HistoryList = observer(() => {
         HistoryStore.find()
     }
 
+    useEffect(() => {
+        console.log('加载');
+        return () => {
+            console.log('卸载组件');
+            HistoryStore.reset()
+        }
+    },[])
     return (
         <>
-            <h2>HistoryList</h2>
             <InfiniteScroll
                 initialLoad={true}
                 pageStart={0}
