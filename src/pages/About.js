@@ -3,7 +3,10 @@ import React from 'react'
 function About() {
     return (
         <>
-            <h2>About</h2>
+            <h2>简介</h2>
+            <p>
+            
+            </p>
         </>
     );
 }

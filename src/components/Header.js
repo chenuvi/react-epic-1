@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import LogoUrl from './logo.svg';
+import LogoUrl from '../icons/rabbit.svg';
 import { NavLink, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from 'antd';
@@ -11,21 +11,36 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   padding: 10px 100px;
-  background-color: #02101f;
-  color: #fff;
+  background-color: #fff;
+  color:#121212 ;
+  min-width:1000px;
+  box-shadow: 0 1px 3px rgba(18,18,18,.1);
+  font-size: 15px;
 `;
 
 const Logo = styled.img`
+  fill: rgb(0, 132, 255);
+  width: 64px;
   height: 30px;
 `;
 
 const StyledLink = styled(NavLink)`
-  color: #fff;
+  color:#8590a6;
   margin-left: 30px;
 
   &.active {
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #0084ff;
+    color:#444;
+    font-weight: 600;
   }
+  &.is-active::after {
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 3px;
+    background: #0084ff;
+    content: "";
+}
 `;
 
 const Login = styled.div`
@@ -37,7 +52,7 @@ const StyledButton = styled(Button)`
 `;
 
 
-const  Component = observer(() => {
+const Component = observer(() => {
   const history = useHistory();
   const { UserStore, AuthStore } = useStores();
 
@@ -53,7 +68,7 @@ const  Component = observer(() => {
     history.push('/register');
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     UserStore.pullUser()
   })
 
@@ -63,21 +78,21 @@ const  Component = observer(() => {
       <nav>
         <StyledLink to="/" activeClassName="active" exact>首页</StyledLink>
         <StyledLink to="/history" activeClassName="active">上传历史</StyledLink>
-        <StyledLink to="/about" activeClassName="active">关于我</StyledLink>
+        <StyledLink to="/about" activeClassName="active">关于图兔</StyledLink>
       </nav>
       <Login>
         {
           UserStore.currentUser ? <>
             {UserStore.currentUser.attributes.username} <StyledButton type="primary" onClick={handleLogout}>注销</StyledButton>
-          </> :<>
-          <StyledButton type="primary" onClick={handleLogin}>登录</StyledButton>
-          <StyledButton type="primary" onClick={handleRegister}>注册</StyledButton>
-          </>
+          </> : <>
+              <StyledButton type="primary" onClick={handleLogin}>登录</StyledButton>
+              <StyledButton type="primary" onClick={handleRegister}>注册</StyledButton>
+            </>
 
         }
       </Login>
 
-    </Header>
+    </Header >
   );
 });
 
