@@ -1,9 +1,17 @@
 import React, { useEffect } from 'react'
 import { observer } from 'mobx-react'
 import { useStores } from '../stores'
-import { List, message, Spin } from 'antd';
-
+import { List, Spin } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
+import styled from 'styled-components'
+
+
+const Img = styled.img`
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border: 1px solid #eee;
+`
 
 const HistoryList = observer(() => {
     const { HistoryStore } = useStores()
@@ -19,7 +27,7 @@ const HistoryList = observer(() => {
             console.log('卸载组件');
             HistoryStore.reset()
         }
-    },[])
+    }, [])
     return (
         <>
             <InfiniteScroll
@@ -30,10 +38,12 @@ const HistoryList = observer(() => {
                 useWindow={true}
             >
                 <List
-                    dataSource={ HistoryStore.list}
+                    dataSource={HistoryStore.list}
                     renderItem={item => (
                         <List.Item key={item.id}>
-                            <div ><img style={{height:'100px'}} src={item.attributes.url.attributes.url}></img></div>
+                            <div>
+                                <Img src={item.attributes.url.attributes.url}  />
+                            </div>
                             <div>
                                 <h5>{item.attributes.filename}</h5>
                             </div>
